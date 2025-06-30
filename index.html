@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PickupBiz Software HTML/CSS/JS Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .question {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .option {
+      margin: 5px 0;
+    }
+    label {
+      display: inline-block;
+      width: 100%;
+      word-wrap: break-word;
+    }
+    button {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 25px;
+      background-color: #2980b9;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #1c5980;
+    }
+    #result {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 30px;
+    }
+    input[type="text"] {
+      display: block;
+      margin: 10px auto;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>PickupBiz Software Quiz (HTML / CSS / JS)</h1>
+  <input type="text" id="userName" placeholder="Enter Your Name" required />
+  <div id="quiz"></div>
+  <button onclick="submitQuiz()">Submit Test</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "What is the purpose of &lt;!DOCTYPE html&gt;?",
+        a: "c",
+        options: [
+          "It's a comment tag",
+          "It includes a JavaScript file",
+          "Declares the document type",
+          "Links a CSS stylesheet"
+        ]
+      },
+      {
+        q: "Which selector selects all elements in CSS?",
+        a: "d",
+        options: [
+          "#selector",
+          ".selector",
+          "tag selector",
+          "*"
+        ]
+      },
+      {
+        q: "Which tag is used to insert a JavaScript code?",
+        a: "b",
+        options: [
+          "&lt;js&gt;",
+          "&lt;script&gt;",
+          "&lt;javascript&gt;",
+          "&lt;code&gt;"
+        ]
+      },
+      {
+        q: "What does 'padding' do in CSS?",
+        a: "b",
+        options: [
+          "Adds space outside the element",
+          "Adds space inside the border",
+          "Sets the text color",
+          "Defines box height"
+        ]
+      },
+      {
+        q: "What is the correct way to write a JavaScript function?",
+        a: "c",
+        options: [
+          "function:myFunc() {}",
+          "def myFunc() {}",
+          "function myFunc() {}",
+          "func myFunc()"
+        ]
+      },
+      {
+        q: "Which input type is used to accept numeric values only?",
+        a: "b",
+        options: [
+          "text",
+          "number",
+          "email",
+          "password"
+        ]
+      },
+      {
+        q: "Which CSS property changes background color?",
+        a: "a",
+        options: [
+          "background-color",
+          "color",
+          "bg",
+          "fill"
+        ]
+      },
+      {
+        q: "What does 'box-shadow' do in CSS?",
+        a: "d",
+        options: [
+          "Adds inner border",
+          "Sets padding",
+          "Creates margin",
+          "Adds shadow around the box"
+        ]
+      },
+      {
+        q: "How to show alert in JavaScript?",
+        a: "a",
+        options: [
+          "alert('Hello')",
+          "msg('Hello')",
+          "show('Hello')",
+          "notify('Hello')"
+        ]
+      },
+      {
+        q: "Which HTML tag defines a paragraph?",
+        a: "a",
+        options: [
+          "&lt;p&gt;",
+          "&lt;div&gt;",
+          "&lt;span&gt;",
+          "&lt;para&gt;"
+        ]
+      },
+      {
+        q: "What is CSS used for?",
+        a: "b",
+        options: [
+          "Structure of webpage",
+          "Styling webpages",
+          "Adding logic",
+          "Linking databases"
+        ]
+      },
+      {
+        q: "What is JavaScript used for?",
+        a: "c",
+        options: [
+          "Making pages pretty",
+          "Creating backend",
+          "Adding interactivity",
+          "Writing HTML"
+        ]
+      },
+      {
+        q: "What does the 'margin' property define?",
+        a: "c",
+        options: [
+          "Content box",
+          "Inside padding",
+          "Space outside border",
+          "Element border"
+        ]
+      },
+      {
+        q: "What does getElementById return in JS?",
+        a: "a",
+        options: [
+          "HTML element",
+          "Number",
+          "String",
+          "Array"
+        ]
+      },
+      {
+        q: "Which HTML element is used for large headings?",
+        a: "a",
+        options: [
+          "&lt;h1&gt;",
+          "&lt;head&gt;",
+          "&lt;heading&gt;",
+          "&lt;h6&gt;"
+        ]
+      },
+      {
+        q: "Which CSS property makes edges rounded?",
+        a: "b",
+        options: [
+          "border-box",
+          "border-radius",
+          "outline",
+          "edge-radius"
+        ]
+      },
+      {
+        q: "What is the use of &lt;input&gt; tag?",
+        a: "a",
+        options: [
+          "Get user input",
+          "Style content",
+          "Load image",
+          "Print data"
+        ]
+      },
+      {
+        q: "Which tag creates clickable button in HTML?",
+        a: "b",
+        options: [
+          "&lt;btn&gt;",
+          "&lt;button&gt;",
+          "&lt;click&gt;",
+          "&lt;input type='click'&gt;"
+        ]
+      },
+      {
+        q: "Which property is used to make text bold?",
+        a: "c",
+        options: [
+          "font-color",
+          "text-size",
+          "font-weight",
+          "font-style"
+        ]
+      },
+      {
+        q: "What is the correct syntax for linking CSS?",
+        a: "d",
+        options: [
+          "&lt;style src='style.css'&gt;",
+          "@import 'style.css';",
+          "&lt;link css='style.css'&gt;",
+          "&lt;link rel='stylesheet' href='style.css'&gt;"
+        ]
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((question, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<p>${index + 1}. ${question.q}</p>` +
+        question.options.map((opt, i) => {
+          const value = String.fromCharCode(97 + i);
+          return `<div class='option'><label><input type='radio' name='q${index + 1}' value='${value}'> ${opt}</label></div>`;
+        }).join("");
+      quizDiv.appendChild(div);
+    });
+
+    function submitQuiz() {
+      const name = document.getElementById('userName').value.trim();
+      if (!name) {
+        alert("Please enter your name");
+        return;
+      }
+
+      let score = 0;
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name='q${i + 1}']:checked`);
+        if (selected && selected.value === q.a) score++;
+      });
+
+      const result = document.getElementById("result");
+      result.innerHTML = `<strong>${name}</strong>, your score is: ${score}/${questions.length}`;
+
+      if (score === questions.length) {
+        result.innerHTML += "<br>Perfect! 🎉";
+      } else if (score >= 15) {
+        result.innerHTML += "<br>Excellent performance!";
+      } else if (score >= 10) {
+        result.innerHTML += "<br>Great job! Keep practicing!";
+      } else {
+        result.innerHTML += "<br>Needs improvement. Keep learning!";
+      }
+    }
+  </script>
+</body>
+</html>

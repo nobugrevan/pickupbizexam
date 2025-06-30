@@ -2,20 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PickupBiz Software HTML/CSS/JS Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PickupBiz Software Quiz</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
+      margin: 0;
       background-color: #f9f9f9;
+      padding-top: 120px;
     }
+
+    nav {
+      background: linear-gradient(45deg, #1c1c1c, #333);
+      padding: 20px;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      transition: all 0.5s ease;
+      z-index: 999;
+    }
+
+    nav:before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #f39c12, #f1c40f, #f39c12, #f1c40f);
+      z-index: 0;
+      transition: 1s;
+      transform: rotate(45deg);
+    }
+
+    nav:hover:before {
+      top: 0;
+      left: 0;
+    }
+
+    .navbar {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-item {
+      margin: 0 20px;
+      position: relative;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      display: inline-block;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #f39c12;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4), inset 0px 4px 8px rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .nav-link img {
+      vertical-align: middle;
+      margin-right: 8px;
+      width: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover img {
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    .main-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
     h1 {
       text-align: center;
       color: #2c3e50;
     }
+
     .question {
       background-color: #fff;
       padding: 15px;
@@ -23,18 +112,22 @@
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+
     .question p {
       font-weight: bold;
       margin-bottom: 10px;
     }
+
     .option {
       margin: 5px 0;
     }
+
     label {
       display: inline-block;
       width: 100%;
       word-wrap: break-word;
     }
+
     button {
       display: block;
       margin: 30px auto 10px;
@@ -46,14 +139,17 @@
       cursor: pointer;
       font-size: 16px;
     }
+
     button:hover {
       background-color: #1c5980;
     }
+
     #result {
       text-align: center;
       font-size: 1.2em;
       margin-top: 30px;
     }
+
     input[type="text"] {
       display: block;
       margin: 10px auto;
@@ -65,227 +161,128 @@
   </style>
 </head>
 <body>
-  <h1>PickupBiz Software Quiz (HTML / CSS / JS)</h1>
-  <input type="text" id="userName" placeholder="Enter Your Name" required />
-  <div id="quiz"></div>
-  <button onclick="submitQuiz()">Submit Test</button>
-  <div id="result"></div>
+  <nav>
+    <ul id="navbar" class="navbar"></ul>
+  </nav>
+
+  <div class="main-content">
+    <h1>PickupBiz Software Quiz</h1>
+    <input type="text" id="userName" placeholder="Enter Your Name" required />
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit Test</button>
+    <div id="result"></div>
+  </div>
 
   <script>
-    const questions = [
-      {
-        q: "What is the purpose of &lt;!DOCTYPE html&gt;?",
-        a: "c",
-        options: [
-          "It's a comment tag",
-          "It includes a JavaScript file",
-          "Declares the document type",
-          "Links a CSS stylesheet"
-        ]
-      },
-      {
-        q: "Which selector selects all elements in CSS?",
-        a: "d",
-        options: [
-          "#selector",
-          ".selector",
-          "tag selector",
-          "*"
-        ]
-      },
-      {
-        q: "Which tag is used to insert a JavaScript code?",
-        a: "b",
-        options: [
-          "&lt;js&gt;",
-          "&lt;script&gt;",
-          "&lt;javascript&gt;",
-          "&lt;code&gt;"
-        ]
-      },
-      {
-        q: "What does 'padding' do in CSS?",
-        a: "b",
-        options: [
-          "Adds space outside the element",
-          "Adds space inside the border",
-          "Sets the text color",
-          "Defines box height"
-        ]
-      },
-      {
-        q: "What is the correct way to write a JavaScript function?",
-        a: "c",
-        options: [
-          "function:myFunc() {}",
-          "def myFunc() {}",
-          "function myFunc() {}",
-          "func myFunc()"
-        ]
-      },
-      {
-        q: "Which input type is used to accept numeric values only?",
-        a: "b",
-        options: [
-          "text",
-          "number",
-          "email",
-          "password"
-        ]
-      },
-      {
-        q: "Which CSS property changes background color?",
-        a: "a",
-        options: [
-          "background-color",
-          "color",
-          "bg",
-          "fill"
-        ]
-      },
-      {
-        q: "What does 'box-shadow' do in CSS?",
-        a: "d",
-        options: [
-          "Adds inner border",
-          "Sets padding",
-          "Creates margin",
-          "Adds shadow around the box"
-        ]
-      },
-      {
-        q: "How to show alert in JavaScript?",
-        a: "a",
-        options: [
-          "alert('Hello')",
-          "msg('Hello')",
-          "show('Hello')",
-          "notify('Hello')"
-        ]
-      },
-      {
-        q: "Which HTML tag defines a paragraph?",
-        a: "a",
-        options: [
-          "&lt;p&gt;",
-          "&lt;div&gt;",
-          "&lt;span&gt;",
-          "&lt;para&gt;"
-        ]
-      },
-      {
-        q: "What is CSS used for?",
-        a: "b",
-        options: [
-          "Structure of webpage",
-          "Styling webpages",
-          "Adding logic",
-          "Linking databases"
-        ]
-      },
-      {
-        q: "What is JavaScript used for?",
-        a: "c",
-        options: [
-          "Making pages pretty",
-          "Creating backend",
-          "Adding interactivity",
-          "Writing HTML"
-        ]
-      },
-      {
-        q: "What does the 'margin' property define?",
-        a: "c",
-        options: [
-          "Content box",
-          "Inside padding",
-          "Space outside border",
-          "Element border"
-        ]
-      },
-      {
-        q: "What does getElementById return in JS?",
-        a: "a",
-        options: [
-          "HTML element",
-          "Number",
-          "String",
-          "Array"
-        ]
-      },
-      {
-        q: "Which HTML element is used for large headings?",
-        a: "a",
-        options: [
-          "&lt;h1&gt;",
-          "&lt;head&gt;",
-          "&lt;heading&gt;",
-          "&lt;h6&gt;"
-        ]
-      },
-      {
-        q: "Which CSS property makes edges rounded?",
-        a: "b",
-        options: [
-          "border-box",
-          "border-radius",
-          "outline",
-          "edge-radius"
-        ]
-      },
-      {
-        q: "What is the use of &lt;input&gt; tag?",
-        a: "a",
-        options: [
-          "Get user input",
-          "Style content",
-          "Load image",
-          "Print data"
-        ]
-      },
-      {
-        q: "Which tag creates clickable button in HTML?",
-        a: "b",
-        options: [
-          "&lt;btn&gt;",
-          "&lt;button&gt;",
-          "&lt;click&gt;",
-          "&lt;input type='click'&gt;"
-        ]
-      },
-      {
-        q: "Which property is used to make text bold?",
-        a: "c",
-        options: [
-          "font-color",
-          "text-size",
-          "font-weight",
-          "font-style"
-        ]
-      },
-      {
-        q: "What is the correct syntax for linking CSS?",
-        a: "d",
-        options: [
-          "&lt;style src='style.css'&gt;",
-          "@import 'style.css';",
-          "&lt;link css='style.css'&gt;",
-          "&lt;link rel='stylesheet' href='style.css'&gt;"
-        ]
-      }
+    const navItems = [
+      { name: "HtmlTest", section: "html", icon: "https://static.thenounproject.com/png/3574480-200.png" },
+      { name: "CssTest", section: "css", icon: "https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/about-512.png" },
+      { name: "Javascript", section: "js", icon: "https://e7.pngegg.com/pngimages/461/915/png-clipart-computer-icons-service-computer-software-skills-icon-blue-company-thumbnail.png" }
     ];
 
-    const quizDiv = document.getElementById("quiz");
-    questions.forEach((question, index) => {
-      const div = document.createElement("div");
-      div.className = "question";
-      div.innerHTML = `<p>${index + 1}. ${question.q}</p>` +
-        question.options.map((opt, i) => {
-          const value = String.fromCharCode(97 + i);
-          return `<div class='option'><label><input type='radio' name='q${index + 1}' value='${value}'> ${opt}</label></div>`;
-        }).join("");
-      quizDiv.appendChild(div);
+    const questionBank = {
+      html: [
+        { q: "Which tag defines a form input field?", a: "a", options: ["&lt;input&gt;", "&lt;form&gt;", "&lt;field&gt;", "&lt;textbox&gt;"] },
+        { q: "Which tag creates a button to submit actions?", a: "b", options: ["&lt;submit&gt;", "&lt;button&gt;", "&lt;action&gt;", "&lt;click&gt;"] },
+        { q: "Which attribute specifies the unique id of an element?", a: "a", options: ["id", "name", "key", "label"] },
+        { q: "What is the correct DOCTYPE declaration for HTML5?", a: "b", options: ["&lt;!HTML5&gt;", "&lt;!DOCTYPE html&gt;", "&lt;doctype html&gt;", "&lt;!Doc html5&gt;"] },
+        { q: "Which tag includes JavaScript in HTML?", a: "c", options: ["&lt;js&gt;", "&lt;javascript&gt;", "&lt;script&gt;", "&lt;code&gt;"] },
+        { q: "Which element is used for visible text heading?", a: "a", options: ["&lt;h1&gt;", "&lt;head&gt;", "&lt;heading&gt;", "&lt;h&gt;"] },
+        { q: "Which attribute gets user input from a field?", a: "d", options: ["content", "text", "innerText", "value"] },
+        { q: "Which tag defines metadata?", a: "b", options: ["&lt;head&gt;", "&lt;meta&gt;", "&lt;data&gt;", "&lt;info&gt;"] },
+        { q: "How do you group multiple elements in HTML?", a: "a", options: ["&lt;div&gt;", "&lt;group&gt;", "&lt;section&gt;", "&lt;bundle&gt;"] },
+        { q: "What does the 'lang' attribute specify?", a: "c", options: ["Language of file path", "Programming language", "Language of document", "JS version"] },
+        { q: "Which tag defines a form input field?", a: "a", options: ["&lt;input&gt;", "&lt;form&gt;", "&lt;field&gt;", "&lt;textbox&gt;"] },
+        { q: "Which tag creates a button to submit actions?", a: "b", options: ["&lt;submit&gt;", "&lt;button&gt;", "&lt;action&gt;", "&lt;click&gt;"] },
+        { q: "Which attribute specifies the unique id of an element?", a: "a", options: ["id", "name", "key", "label"] },
+        { q: "What is the correct DOCTYPE declaration for HTML5?", a: "b", options: ["&lt;!HTML5&gt;", "&lt;!DOCTYPE html&gt;", "&lt;doctype html&gt;", "&lt;!Doc html5&gt;"] },
+        { q: "Which tag includes JavaScript in HTML?", a: "c", options: ["&lt;js&gt;", "&lt;javascript&gt;", "&lt;script&gt;", "&lt;code&gt;"] },
+        { q: "Which element is used for visible text heading?", a: "a", options: ["&lt;h1&gt;", "&lt;head&gt;", "&lt;heading&gt;", "&lt;h&gt;"] },
+        { q: "Which attribute gets user input from a field?", a: "d", options: ["content", "text", "innerText", "value"] },
+        { q: "Which tag defines metadata?", a: "b", options: ["&lt;head&gt;", "&lt;meta&gt;", "&lt;data&gt;", "&lt;info&gt;"] },
+        { q: "How do you group multiple elements in HTML?", a: "a", options: ["&lt;div&gt;", "&lt;group&gt;", "&lt;section&gt;", "&lt;bundle&gt;"] },
+        { q: "What does the 'lang' attribute specify?", a: "c", options: ["Language of file path", "Programming language", "Language of document", "JS version"] }
+      ],
+      css: [
+        { q: "Which CSS selector targets all elements?", a: "a", options: ["*", "all", "body *", "html *"] },
+        { q: "What property changes background color?", a: "b", options: ["color", "background-color", "bg", "fill"] },
+        { q: "What is the purpose of 'margin'?", a: "c", options: ["Text spacing", "Border space", "Outer space around element", "Padding"] },
+        { q: "What does 'padding' control?", a: "d", options: ["Line height", "Outer space", "Text indent", "Space between content and border"] },
+        { q: "What makes the corner of an element rounded?", a: "c", options: ["edge-style", "curve", "border-radius", "corner"] },
+        { q: "Which selector styles an element with id='main'?", a: "a", options: ["#main", ".main", "main#", "main>"] },
+        { q: "Which font-family is used for cursive text?", a: "b", options: ["serif", "cursive", "fantasy", "monospace"] },
+        { q: "Which property adds drop shadow to elements?", a: "d", options: ["shadow", "drop-shadow", "element-shadow", "box-shadow"] },
+        { q: "How do you apply styles to a specific tag like &lt;button&gt;?", a: "a", options: ["button { }", "#button { }", ".button { }", "&lt;button&gt; { }"] },
+        { q: "Which unit is relative to parent font size?", a: "c", options: ["px", "%", "em", "vh"] },
+        { q: "Which CSS selector targets all elements?", a: "a", options: ["*", "all", "body *", "html *"] },
+        { q: "What property changes background color?", a: "b", options: ["color", "background-color", "bg", "fill"] },
+        { q: "What is the purpose of 'margin'?", a: "c", options: ["Text spacing", "Border space", "Outer space around element", "Padding"] },
+        { q: "What does 'padding' control?", a: "d", options: ["Line height", "Outer space", "Text indent", "Space between content and border"] },
+        { q: "What makes the corner of an element rounded?", a: "c", options: ["edge-style", "curve", "border-radius", "corner"] },
+        { q: "Which selector styles an element with id='main'?", a: "a", options: ["#main", ".main", "main#", "main>"] },
+        { q: "Which font-family is used for cursive text?", a: "b", options: ["serif", "cursive", "fantasy", "monospace"] },
+        { q: "Which property adds drop shadow to elements?", a: "d", options: ["shadow", "drop-shadow", "element-shadow", "box-shadow"] },
+        { q: "How do you apply styles to a specific tag like &lt;button&gt;?", a: "a", options: ["button { }", "#button { }", ".button { }", "&lt;button&gt; { }"] },
+        { q: "Which unit is relative to parent font size?", a: "c", options: ["px", "%", "em", "vh"] }
+      ],
+      js: [
+        { q: "What does getElementById do?", a: "a", options: ["Finds an element by ID", "Creates a new element", "Removes an element", "Adds style to an element"] },
+        { q: "What symbol ends JavaScript statements?", a: "b", options: [".", ";", ":", "/"] },
+        { q: "What does alert() do?", a: "c", options: ["Logs to console", "Submits form", "Displays popup", "Changes HTML"] },
+        { q: "Which keyword declares a variable?", a: "d", options: ["new", "int", "define", "let"] },
+        { q: "What event triggers a button click?", a: "a", options: ["onclick", "hover", "onload", "submit"] },
+        { q: "What is typeof '123'?", a: "b", options: ["number", "string", "undefined", "object"] },
+        { q: "Which function multiplies two numbers?", a: "c", options: ["add()", "divide()", "multiply()", "modulo()"] },
+        { q: "Which symbol is used for comments?", a: "d", options: ["#", "//--", "--", "//"] },
+        { q: "What does parseInt() do?", a: "a", options: ["Converts string to integer", "Parses boolean", "Extracts substring", "Rounds number"] },
+        { q: "What is DOM?", a: "c", options: ["Data Output Model", "Document Orientation Mode", "Document Object Model", "DOM Parser"] },
+         { q: "What does getElementById do?", a: "a", options: ["Finds an element by ID", "Creates a new element", "Removes an element", "Adds style to an element"] },
+        { q: "What symbol ends JavaScript statements?", a: "b", options: [".", ";", ":", "/"] },
+        { q: "What does alert() do?", a: "c", options: ["Logs to console", "Submits form", "Displays popup", "Changes HTML"] },
+        { q: "Which keyword declares a variable?", a: "d", options: ["new", "int", "define", "let"] },
+        { q: "What event triggers a button click?", a: "a", options: ["onclick", "hover", "onload", "submit"] },
+        { q: "What is typeof '123'?", a: "b", options: ["number", "string", "undefined", "object"] },
+        { q: "Which function multiplies two numbers?", a: "c", options: ["add()", "divide()", "multiply()", "modulo()"] },
+        { q: "Which symbol is used for comments?", a: "d", options: ["#", "//--", "--", "//"] },
+        { q: "What does parseInt() do?", a: "a", options: ["Converts string to integer", "Parses boolean", "Extracts substring", "Rounds number"] },
+        { q: "What is DOM?", a: "c", options: ["Data Output Model", "Document Orientation Mode", "Document Object Model", "DOM Parser"] }
+      ]
+    };
+
+    const navBar = document.getElementById('navbar');
+    navItems.forEach(item => {
+      const navItem = document.createElement('li');
+      navItem.classList.add('nav-item');
+
+      const navLink = document.createElement('a');
+      navLink.classList.add('nav-link');
+      navLink.textContent = item.name;
+      navLink.href = "#";
+      navLink.addEventListener('click', () => loadSection(item.section));
+
+      const navIcon = document.createElement('img');
+      navIcon.src = item.icon;
+      navLink.prepend(navIcon);
+
+      navItem.appendChild(navLink);
+      navBar.appendChild(navItem);
     });
+
+    function loadSection(section) {
+      const quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = "";
+      const questions = questionBank[section];
+      questions.forEach((question, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<p>${index + 1}. ${question.q}</p>` +
+          question.options.map((opt, i) => {
+            const value = String.fromCharCode(97 + i);
+            return `<div class='option'><label><input type='radio' name='q${index + 1}' value='${value}'> ${opt}</label></div>`;
+          }).join("");
+        quizDiv.appendChild(div);
+      });
+    }
 
     function submitQuiz() {
       const name = document.getElementById('userName').value.trim();
@@ -294,6 +291,14 @@
         return;
       }
 
+      const inputs = document.querySelectorAll("#quiz input[type='radio']");
+      if (!inputs.length) {
+        alert("Please select a section and answer some questions first.");
+        return;
+      }
+
+      const activeSection = Object.keys(questionBank).find(sec => document.querySelector(`input[name='q1']`));
+      const questions = questionBank[activeSection];
       let score = 0;
       questions.forEach((q, i) => {
         const selected = document.querySelector(`input[name='q${i + 1}']:checked`);
@@ -305,14 +310,16 @@
 
       if (score === questions.length) {
         result.innerHTML += "<br>Perfect! 🎉";
-      } else if (score >= 15) {
+      } else if (score >= 8) {
         result.innerHTML += "<br>Excellent performance!";
-      } else if (score >= 10) {
+      } else if (score >= 5) {
         result.innerHTML += "<br>Great job! Keep practicing!";
       } else {
         result.innerHTML += "<br>Needs improvement. Keep learning!";
       }
     }
+
+    loadSection("html");
   </script>
 </body>
 </html>
